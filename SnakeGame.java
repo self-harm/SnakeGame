@@ -7,6 +7,9 @@ public class SnakeGame extends Game {
     private Snake snake;
     private int turnDelay;
     private Apple apple;
+    private boolean isGameStopped;
+    private static final int GOAL = 28;
+    private int score;
 
     @Override
     public void initialize() {
@@ -15,11 +18,14 @@ public class SnakeGame extends Game {
     }
 
     private void createGame(){
+        score = 0;
         snake = new Snake(WIDTH/2, HEIGHT/2);
         createNewApple();
+        isGameStopped = false;
         drawScene();
         turnDelay = 300;
         setTurnTimer(turnDelay);
+        setScore(score);
 
 
         // Apple apple = new Apple(7,7);
@@ -38,8 +44,25 @@ public class SnakeGame extends Game {
     }
 
     private void createNewApple(){
-        Apple apple = new Apple(getRandomNumber(WIDTH), getRandomNumber(HEIGHT));
-        this.apple=apple;
+        Apple newApple;
+        do {
+            int x = getRandomNumber(WIDTH);
+            int y = getRandomNumber(HEIGHT);
+            newApple = new Apple(x, y);
+        } while (snake.checkCollision(newApple));
+        apple = newApple;
+    }
+
+    private void gameOver(){
+        stopTurnTimer();
+        isGameStopped = true;
+        showMessageDialog(Color.BLACK, "GAME OVER", Color.DEEPPINK, 70);
+    }
+
+    private void win(){
+        stopTurnTimer();
+        isGameStopped = true;
+        showMessageDialog(Color.BLACK, "YOU WIN", Color.DEEPPINK, 70);
     }
     
     @Override
@@ -47,6 +70,16 @@ public class SnakeGame extends Game {
         snake.move(apple);
         if(apple.isAlive==false){
             createNewApple();
+            score = score + 5;
+            setScore(score);
+            turnDelay = turnDelay - 10;
+            setTurnTimer(turnDelay);
+        }
+        if(snake.isAlive==false){
+            gameOver();
+        }
+        if(snake.getLength()>GOAL){
+            win();
         }
         drawScene();
     }
@@ -69,6 +102,9 @@ public class SnakeGame extends Game {
             case DOWN:
                 snake.setDirection(Direction.DOWN);
                 break;
+        }
+        if(key==Key.SPACE && isGameStopped==true) {
+            createGame();
         }
     }
 }
