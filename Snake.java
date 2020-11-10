@@ -36,6 +36,12 @@ public class Snake{
     }
     
     public void setDirection(Direction direction){
+        if(snakeParts.get(0).x == snakeParts.get(1).x && (this.direction == Direction.LEFT || this.direction == Direction.RIGHT)) {
+            return;  //if the snake is going left/right and we press "LEFT/RIGHT" - do nothing(return)
+        }
+        if(snakeParts.get(0).y == snakeParts.get(1).y && (this.direction == Direction.UP || this.direction == Direction.DOWN)){
+            return; //if the snake is going up and we press "UP/DOWN" - do nothing(return)
+        }
         if(direction == Direction.UP && this.direction == Direction.DOWN) {
             return;
         }
@@ -48,9 +54,10 @@ public class Snake{
         if(direction == Direction.LEFT && this.direction == Direction.RIGHT) {
             return;
         }
+
+
         this.direction = direction;
     }
-
 
 
     public void move(Apple apple){
@@ -111,6 +118,10 @@ public class Snake{
             }
         }
         return collision;
+    }
+
+    public int getLength(){
+        return snakeParts.size();
     }
     
 }
