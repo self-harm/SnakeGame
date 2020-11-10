@@ -28,11 +28,9 @@ public class Snake{
         else{
             cellColor=Color.RED;
         }
-            
         game.setCellValueEx(snakeParts.get(0).x, snakeParts.get(0).y, Color.NONE, HEAD_SIGN, cellColor, 75);
         game.setCellValueEx(snakeParts.get(1).x, snakeParts.get(1).y, Color.NONE, BODY_SIGN, cellColor, 75);
         game.setCellValueEx(snakeParts.get(2).x, snakeParts.get(2).y, Color.NONE, BODY_SIGN, cellColor, 75);
-  
     }
     
     public void setDirection(Direction direction){
@@ -54,8 +52,6 @@ public class Snake{
         if(direction == Direction.LEFT && this.direction == Direction.RIGHT) {
             return;
         }
-
-
         this.direction = direction;
     }
 
@@ -101,7 +97,6 @@ public class Snake{
             case LEFT: object= new GameObject(object.x-1, object.y);
             break;
         }
-    
         return object;
     }
     
