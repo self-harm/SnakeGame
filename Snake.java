@@ -28,9 +28,15 @@ public class Snake{
         else{
             cellColor=Color.RED;
         }
+            
         game.setCellValueEx(snakeParts.get(0).x, snakeParts.get(0).y, Color.NONE, HEAD_SIGN, cellColor, 75);
-        game.setCellValueEx(snakeParts.get(1).x, snakeParts.get(1).y, Color.NONE, BODY_SIGN, cellColor, 75);
-        game.setCellValueEx(snakeParts.get(2).x, snakeParts.get(2).y, Color.NONE, BODY_SIGN, cellColor, 75);
+        // game.setCellValueEx(snakeParts.get(1).x, snakeParts.get(1).y, Color.NONE, BODY_SIGN, cellColor, 75);
+        // game.setCellValueEx(snakeParts.get(2).x, snakeParts.get(2).y, Color.NONE, BODY_SIGN, cellColor, 75);
+        
+         for (int i = 1; i != snakeParts.size(); i++) {
+            game.setCellValueEx(snakeParts.get(i).x, snakeParts.get(i).y, Color.NONE, BODY_SIGN, cellColor, 75);
+        }
+  
     }
     
     public void setDirection(Direction direction){
@@ -52,31 +58,39 @@ public class Snake{
         if(direction == Direction.LEFT && this.direction == Direction.RIGHT) {
             return;
         }
+
+
         this.direction = direction;
     }
 
 
     public void move(Apple apple){
         GameObject newHead = createNewHead();
-        if(newHead.x == apple.x  && newHead.y == apple.y){
-            apple.isAlive=false;
-        }
-        else if(newHead.x>=SnakeGame.WIDTH ||
-        newHead.x<0                   ||
-        newHead.y>=SnakeGame.HEIGHT   ||
-        newHead.y<0
+  
+        if(newHead.x>=SnakeGame.WIDTH     || //if the snake encounters the wall;
+            newHead.x<0                   ||
+            newHead.y>=SnakeGame.HEIGHT   ||
+            newHead.y<0
         ){
             isAlive=false;
+            return;
         }
+
+        if(newHead.x == apple.x  && newHead.y == apple.y){  //if the snake encounters the apple;
+            apple.isAlive=false;
+            snakeParts.add(0, newHead);
+        }
+       
         else{
             if(checkCollision(newHead)) {
                 isAlive = false;
                 return;
             }
-            snakeParts.add(0, newHead);
             removeTail();
+            snakeParts.add(0, newHead);
         }
     }
+    
     
     public GameObject createNewHead(){
         GameObject object = snakeParts.get(0);
@@ -97,6 +111,7 @@ public class Snake{
             case LEFT: object= new GameObject(object.x-1, object.y);
             break;
         }
+    
         return object;
     }
     
@@ -118,5 +133,4 @@ public class Snake{
     public int getLength(){
         return snakeParts.size();
     }
-    
 }
