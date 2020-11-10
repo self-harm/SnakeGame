@@ -18,18 +18,14 @@ public class SnakeGame extends Game {
     }
 
     private void createGame(){
-        score = 0;
         snake = new Snake(WIDTH/2, HEIGHT/2);
         createNewApple();
         isGameStopped = false;
         drawScene();
         turnDelay = 300;
         setTurnTimer(turnDelay);
+        score = 0;
         setScore(score);
-
-
-        // Apple apple = new Apple(7,7);
-        // apple.draw(this);
     }
 
     private void drawScene(){
@@ -56,13 +52,13 @@ public class SnakeGame extends Game {
     private void gameOver(){
         stopTurnTimer();
         isGameStopped = true;
-        showMessageDialog(Color.BLACK, "GAME OVER", Color.DEEPPINK, 70);
+        showMessageDialog(Color.BLACK, "GAME OVER", Color.PINK, 70);
     }
 
     private void win(){
         stopTurnTimer();
         isGameStopped = true;
-        showMessageDialog(Color.BLACK, "YOU WIN", Color.DEEPPINK, 70);
+        showMessageDialog(Color.BLACK, "YOU WIN", Color.PINK, 70);
     }
     
     @Override
