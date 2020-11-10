@@ -30,8 +30,6 @@ public class Snake{
         }
             
         game.setCellValueEx(snakeParts.get(0).x, snakeParts.get(0).y, Color.NONE, HEAD_SIGN, cellColor, 75);
-        // game.setCellValueEx(snakeParts.get(1).x, snakeParts.get(1).y, Color.NONE, BODY_SIGN, cellColor, 75);
-        // game.setCellValueEx(snakeParts.get(2).x, snakeParts.get(2).y, Color.NONE, BODY_SIGN, cellColor, 75);
         
          for (int i = 1; i != snakeParts.size(); i++) {
             game.setCellValueEx(snakeParts.get(i).x, snakeParts.get(i).y, Color.NONE, BODY_SIGN, cellColor, 75);
