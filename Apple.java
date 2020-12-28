@@ -1,5 +1,6 @@
 import com.javarush.engine.cell.*;
 
+
 public class Apple extends GameObject {
     private static final String APPLE_SIGN = "🐤";
     public boolean isAlive = true;
